@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import Card from "../Component/Card";
 import CardHome from "../Component/CardHome";
@@ -6,7 +7,16 @@ import SmallCard from "../Component/SmallCard";
 import { store } from "./Details";
 
 const Home = () => {
-  const [detail, setDetail] = useContext(store);
+  // const [detail, setDetail] = useContext(store);
+  const [detail, setDetail] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await axios.get("https://ea-react-blog-backend.herokuapp.com/api/blogdata");
+      setDetail(data.data);
+    };
+    getData();
+  }, []);
   return (
     <div>
       <div className="Home">
